@@ -17,6 +17,7 @@ def call(body) {
                 script {
                     sh 'echo "Hello Checkout"'
 		    println env.WORKSPACE
+		    println getTriggerUser()
                 }
               }
           } 
