@@ -16,8 +16,7 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Checkout"'
-		    println env.WORKSPACE
-		    println getTriggerUser()
+		    sh 'echo $BUILD_CAUSE_JSON'
                 }
               }
           } 
