@@ -1,4 +1,5 @@
 pipeline {
+    agent docker-slave
     stages {
         stage("Stage 1"){
             steps {
