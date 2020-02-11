@@ -1,21 +1,24 @@
-pipeline {
-    agent {
-        label 'master'
-    }
-    stages {
-        stage('Checkout'){
-            steps {
-              script {
-                  sh 'echo "Hello Checkout"'
+def call(body) {
+  
+    pipeline {
+      agent {
+          label 'master'
+      }
+      stages {
+          stage('Checkout'){
+              steps {
+                script {
+                    sh 'echo "Hello Checkout"'
+                }
               }
-            }
-        } 
-        stage('Deploy'){
-            steps {
-              script {
-                  sh 'echo "Hello Deploy"'
-              }   
-            }
-        }
+          } 
+          stage('Deploy'){
+              steps {
+                script {
+                    sh 'echo "Hello Deploy"'
+                }   
+              }
+          }
+      }
     }
-  }
+}
