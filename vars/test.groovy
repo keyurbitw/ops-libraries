@@ -3,17 +3,17 @@ pipeline {
         label 'master'
     }
     stages {
-        stage("Stage 1"){
+        stage('Checkout'){
             steps {
               script {
-                  sh 'echo "Hello Stage 1"'
+                  sh 'echo "Hello Checkout"'
               }
             }
         } 
-        stage("Stage 2"){
+        stage('Deploy'){
             steps {
               script {
-                  sh 'echo "Hello Stage 2"'
+                  sh 'echo "Hello Deploy"'
               }   
             }
         }
