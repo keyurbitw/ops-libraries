@@ -1,5 +1,4 @@
-def call(body) {
-  
+def call(body) {  
     pipeline {
       agent {
           label 'docker-slave'
@@ -9,6 +8,7 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Checkout"'
+		    println env.WORKSPACE
                 }
               }
           } 
@@ -16,6 +16,7 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Deploy"'
+		    println env.WORKSPACE
                 }   
               }
           }
