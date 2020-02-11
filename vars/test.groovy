@@ -16,6 +16,8 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Checkout"'
+		    sh 'echo $BUILD_USER_ID'
+		    sh 'BUILD_CAUSE_JSON=$(curl --silent ${BUILD_URL}/api/json)'
 		    sh 'echo $BUILD_CAUSE_JSON'
                 }
               }
