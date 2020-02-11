@@ -2,7 +2,7 @@ def call(body) {
   
     pipeline {
       agent {
-          label 'master'
+          label 'docker-slave'
       }
       stages {
           stage('Checkout'){
