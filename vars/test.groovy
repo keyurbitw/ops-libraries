@@ -1,7 +1,10 @@
 def call(body) {  
     pipeline {
       agent {
-          label 'docker-slave'
+        kubernetes {
+          cloud: 'kubernetes'
+          yaml opsUtils.getPodTemplate()
+        }
       }
       parameters {
         string(name: 'INCIDENT', defaultValue: 'ABCDXYZ', description: 'Give the value from incident URL: https://mcloud.pagerduty.com/incidents/P0EKMUC')
