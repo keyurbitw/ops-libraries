@@ -1,3 +1,5 @@
+package opsUtils
+
 def getPodTemplate(){
 """
 apiVersion: v1
