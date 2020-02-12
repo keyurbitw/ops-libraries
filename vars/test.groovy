@@ -1,4 +1,6 @@
 def call(body) {  
+    def opsUtils = new OpsUtils()
+	
     pipeline {
       agent {
         kubernetes {
