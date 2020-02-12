@@ -2,7 +2,7 @@ def call(body) {
     pipeline {
       agent {
         kubernetes {
-          cloud: 'kubernetes'
+          cloud 'kubernetes'
           yaml opsUtils.getPodTemplate()
         }
       }
