@@ -1,3 +1,5 @@
+package podtemplate
+
 def getPodTemplate(){
 
   """
