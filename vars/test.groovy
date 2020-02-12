@@ -1,11 +1,9 @@
 def call(body) {  
-    def opsUtils = new OpsUtils()
-	
     pipeline {
       agent {
         kubernetes {
           cloud 'kubernetes'
-          yaml opsUtils.getPodTemplate()
+          yaml OpsUtils.getPodTemplate()
         }
       }
       parameters {
