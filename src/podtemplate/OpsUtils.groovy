@@ -10,7 +10,7 @@ metadata:
     jenkins_role: slave
 spec:
   containers:
-    - name: jenkins_slave
+    - name: jenkinsslave
       image: keyurbitw/jenkinsdockerslave
 """
 }
