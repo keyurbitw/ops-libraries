@@ -1,4 +1,4 @@
-package opsUtils
+package OpsUtils
 
 def getPodTemplate(){
 """
