@@ -35,7 +35,7 @@ def call(body) {
   		   echo "Executing: ${cmd}"
 		   sh cmd
 		 }catch(Exception e){
-		      sh 'exit 1'
+		      println e
 		 }
    	     }
 	 }
