@@ -3,7 +3,6 @@ def call(body) {
     pipeline {
       agent {
         label 'master'
-        }
       }
       parameters {
         choice(name: 'CREATE_WEBEX_ROOM', choices: ['YES', 'NO'], description: 'Select this to skip webex space creation')
