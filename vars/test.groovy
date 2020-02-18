@@ -13,7 +13,7 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Checkout"'
-		    sh 'curl --silent ${BUILD_URL}api/json'
+            sh 'curl --silent ${BUILD_URL}api/json'
                 }
               }
           } 
@@ -21,22 +21,25 @@ def call(body) {
               steps {
                 script {
                     sh 'echo "Hello Deploy"'
-		    println env.WORKSPACE
+                    println env.WORKSPACE
                 }   
               }
           }
-	 stage('Run Python Script'){
-	     script {
-	         try{
-		   String request = libraryResource script/Main.py
-		   def cmd = "/usr/bin/python request"
-  		   echo "Executing: ${cmd}"
-		   sh cmd
-		 }catch(Exception e){
-		      sh 'exit 1'
-		 }
-   	     }
-	 }
+          stage('Run Python Script'){
+              steps{
+                script{
+                  try {
+                    String request = libraryResource script/Main.py
+                    def cmd = "/usr/bin/python " + request
+                    echo "Executing: ${cmd}"
+                    sh cmd
+                  }
+                  catch(Exception e) {
+                    sh 'exit'
+                  }
+                }
+              }
+          }
       }
     }
 }
