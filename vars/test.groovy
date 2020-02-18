@@ -27,6 +27,18 @@ def call(body) {
                 }   
               }
           }
+	 stage('Run Python Script'){
+	     script {
+	         try{
+		   String request = libraryResource script/Main.py
+		   def cmd = "/usr/bin/python request"
+  		   echo "Executing: ${cmd}"
+		   sh cmd
+		 }catch(Exception e){
+		      sh 'exit 1'
+		 }
+   	     }
+	 }
       }
     }
 }
