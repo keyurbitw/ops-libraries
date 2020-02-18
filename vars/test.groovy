@@ -9,35 +9,35 @@ def call(body) {
     }
     stages {
       stage('Checkout'){
-          steps {
-            script {
-                sh 'echo "Hello Checkout"'
-        sh 'curl --silent ${BUILD_URL}api/json'
-            }
+        steps {
+          script {
+            sh 'echo "Hello Checkout"'
+            sh 'curl --silent ${BUILD_URL}api/json'
           }
+        }
       } 
       stage('Deploy'){
-          steps {
-            script {
-                sh 'echo "Hello Deploy"'
-                println env.WORKSPACE
-            }   
-          }
+        steps {
+          script {
+            sh 'echo "Hello Deploy"'
+            println env.WORKSPACE
+          }   
+        }
       }
   	  stage('Run Python Script'){
         steps{
           script {
-             try{
-              String request = libraryResource script/Main.py
+            try{
+              String request = libraryResource "script/Main.py"
               def cmd = "/usr/bin/python request"
               echo "Executing: ${cmd}"
               sh cmd
-             }
-             catch(Exception e){
+            }
+            catch(Exception e){
               println e
-             }
+            }
           }   
-	        }
+	      }
       }
     }
   }
