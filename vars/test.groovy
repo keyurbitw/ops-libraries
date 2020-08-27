@@ -17,10 +17,25 @@ def call(body) {
         steps {
           script {
             sh 'kubectl get po --all-namespaces --kubeconfig==/home/.kube/config'
-            println env.WORKSPACE
           }   
         }
       }
+      stage('Deploy'){
+        steps {
+          script{
+            sh 'cd pwd && ls -al'
+            sh 'cd elk-stack/ && mkdir -p Deployment && mv *.yaml Deployment'
+            sh 'cd elk-stack/Deployment && kubectl apply -f . --config=/home/.kube/config'
+          }
+        }
+      }
+      stage('Apply Changes'){}
+        steps {
+          script{
+            sh 'kubectl rollout deploy --all -n obs --config=/home/.kube/config'
+            sh 'kubectl rollout ds --all -n obs --config=/home/.kube/config'
+          }
+        }
     }
   }
 }
