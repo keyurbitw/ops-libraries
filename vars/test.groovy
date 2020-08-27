@@ -9,9 +9,7 @@ def call(body) {
           script {
             sh 'git clone https://github.com/keyurbitw/elk-stack.git'
             sh 'pwd && ls -al'
-            sh 'cd elk-stack/'
-            sh 'pwd && ls -al'
-            sh './checkYaml.sh'
+            sh 'cd elk-stack/ && ./checkYaml.sh'
           }
         }
       } 
