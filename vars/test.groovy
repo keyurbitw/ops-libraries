@@ -20,8 +20,8 @@ def call(body) {
       }
       stage('Check Pod Status'){
         when{
-          expression{
-            skipRemainingStages not true
+          if {
+            skipRemainingStages != true
           }
           steps {
             script {
@@ -32,8 +32,8 @@ def call(body) {
       }
       stage('Deploy'){
         when{
-          expression{
-            skipRemainingStages not true
+          if {
+            skipRemainingStages != true
           }
           steps {
             script{
@@ -46,8 +46,8 @@ def call(body) {
       }
       stage('Apply Changes'){
         when{
-          expression{
-            skipRemainingStages not true
+          if {
+            skipRemainingStages != true
           }
           steps {
             script{
