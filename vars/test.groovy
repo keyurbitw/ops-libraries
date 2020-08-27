@@ -1,25 +1,22 @@
-def call(body) {  
-  def opsUtils = new podtemplate.OpsUtils()
+def call(body) {
   pipeline {
     agent {
       label 'docker-slave'
     }
-    parameters {
-      choice(name: 'CREATE_WEBEX_ROOM', choices: ['YES', 'NO'], description: 'Select this to skip webex space creation')
-    }
     stages {
-      stage('Checkout'){
+      stage('Checkout SCM & Validate Yaml'){
         steps {
           script {
-            sh 'echo "Hello Checkout"'
-            sh 'curl --silent ${BUILD_URL}api/json'
+            sh 'git clone https://github.com/keyurbitw/elk-stack.git'
+            sh 'cd elk-stack/'
+            sh './checkYaml.sh'
           }
         }
       } 
-      stage('Deploy'){
+      stage('Check Pod Status'){
         steps {
           script {
-            sh 'echo "Hello Deploy"'
+            sh 'kubectl get po --all-namespaces --kubeconfig==/home/.kube/config'
             println env.WORKSPACE
           }   
         }
