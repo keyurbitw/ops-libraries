@@ -16,7 +16,7 @@ def call(body) {
       stage('Check Pod Status'){
         steps {
           script {
-            sh 'kubectl get po --all-namespaces --kubeconfig==/home/.kube/config'
+            sh 'kubectl get po --all-namespaces --kubeconfig=/home/.kube/config'
           }   
         }
       }
