@@ -29,13 +29,14 @@ def call(body) {
           }
         }
       }
-      stage('Apply Changes'){}
+      stage('Apply Changes'){
         steps {
           script{
             sh 'kubectl rollout deploy --all -n obs --config=/home/.kube/config'
             sh 'kubectl rollout ds --all -n obs --config=/home/.kube/config'
           }
         }
+      }
     }
   }
 }
