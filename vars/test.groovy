@@ -33,7 +33,7 @@ def call(body) {
       stage('Deploy'){
         when{
           expression{
-            !skipRemainingStages not true
+            skipRemainingStages not true
           }
           steps {
             script{
