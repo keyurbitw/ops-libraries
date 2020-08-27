@@ -13,37 +13,47 @@ def call(body) {
               sh 'cd elk-stack/ && ./checkYaml.sh'
             } finally {
                 echo '[FAILURE] Yaml validation failed'
-                def result = 1
+                def skipRemainingStages = true
             }
           }
         }
       }
-      if (result != 0) {
-        echo '[FAILURE] Failed to build'
-        currentBuild.result = 'FAILURE'
-        return
-      }
       stage('Check Pod Status'){
-        steps {
-          script {
-            sh 'kubectl get po --all-namespaces --kubeconfig=/home/.kube/config'
-          }   
+        when{
+          expression{
+            !skipRemainingStages
+          }
+          steps {
+            script {
+              sh 'kubectl get po --all-namespaces --kubeconfig=/home/.kube/config'
+            }   
+          }
         }
       }
       stage('Deploy'){
-        steps {
-          script{
-            sh 'cd pwd && ls -al'
-            sh 'cd elk-stack/ && mkdir -p Deployment && mv *.yaml Deployment'
-            sh 'cd elk-stack/Deployment && kubectl apply -f . --config=/home/.kube/config'
+        when{
+          expression{
+            !skipRemainingStages
+          }
+          steps {
+            script{
+              sh 'cd pwd && ls -al'
+              sh 'cd elk-stack/ && mkdir -p Deployment && mv *.yaml Deployment'
+              sh 'cd elk-stack/Deployment && kubectl apply -f . --config=/home/.kube/config'
+            }
           }
         }
       }
       stage('Apply Changes'){
-        steps {
-          script{
-            sh 'kubectl rollout deploy --all -n obs --config=/home/.kube/config'
-            sh 'kubectl rollout ds --all -n obs --config=/home/.kube/config'
+        when{
+          expression{
+            !skipRemainingStages
+          }
+          steps {
+            script{
+              sh 'kubectl rollout deploy --all -n obs --config=/home/.kube/config'
+              sh 'kubectl rollout ds --all -n obs --config=/home/.kube/config'
+            }
           }
         }
       }
