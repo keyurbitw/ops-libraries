@@ -17,6 +17,11 @@ def call(body) {
           }
         }
       } 
+      if (result != 0) {
+         echo '[FAILURE] Failed to build'
+         currentBuild.result = 'FAILURE'
+         return
+      }
       stage('Check Pod Status'){
         steps {
           script {
