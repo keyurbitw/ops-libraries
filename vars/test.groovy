@@ -13,9 +13,15 @@ def call(body) {
               sh 'cd elk-stack/ && ./checkYaml.sh'
             } finally {
                 echo '[FAILURE] Yaml validation failed'
+                def result = 1
             }
           }
         }
+      }
+      if (result != 0) {
+        echo '[FAILURE] Failed to build'
+        currentBuild.result = 'FAILURE'
+        return
       }
       stage('Check Pod Status'){
         steps {
