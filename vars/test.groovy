@@ -51,7 +51,7 @@ def call(body) {
       stage('Validation'){
         steps{
           script{
-            sh "kubectl exec svc/elasticsearch-logging curl 'localhost:9200/_clusterhealth?pretty' --config=/home/.kube/config"
+            sh 'kubectl exec svc/elasticsearch-logging curl localhost:9200/_cluster/health --config=/home/.kube/config'
             sh 'kubectl get po -n obs --config=/home/.kube/config'
           }
         }
