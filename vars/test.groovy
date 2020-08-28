@@ -19,10 +19,15 @@ def call(body) {
           }
         }
       }
-      stage('Check Pod Status'){
+      stage('Check Pod Status & Verfiy Node Status'){
         steps {
           script {
-            sh 'kubectl get po --all-namespaces --kubeconfig=/home/.kube/config'
+            try{
+              sh 'cd elk-stack/ && ./k8sValidation.sh'
+            } finally {
+                echo '[FAILURE] K8s Validation failed'
+                env.skipRemainingStages = true
+                sh 'exit 1'
           }   
         }
       }
