@@ -34,7 +34,7 @@ def call(body) {
       stage('Deploy'){
         steps {
           script{
-            sh 'cd pwd && ls -al'
+            sh 'pwd && ls -al'
             sh 'cd elk-stack/ && mkdir -p Deployment && mv *.yaml Deployment'
             sh 'cd elk-stack/Deployment && kubectl apply -f . --kubeconfig=/home/.kube/config'
           }
