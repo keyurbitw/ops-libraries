@@ -11,7 +11,7 @@ def call(body) {
             sh 'pwd && ls -al'
             try{
               sh 'cd elk-stack/ && ./checkYaml.sh'
-            } finally {
+            } catch (Exception e) {
                 echo '[FAILURE] Yaml validation failed'
                 env.skipRemainingStages = true
                 sh 'exit 1'
