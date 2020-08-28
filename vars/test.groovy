@@ -37,7 +37,7 @@ def call(body) {
           script{
             sh 'cd pwd && ls -al'
             sh 'cd elk-stack/ && mkdir -p Deployment && mv *.yaml Deployment'
-            sh 'cd elk-stack/Deployment && kubectl apply -f . --config=/home/.kube/config'
+            sh 'cd elk-stack/Deployment && kubectl apply -f . --kubeconfig=/home/.kube/config'
           }
         }
       }
@@ -45,15 +45,15 @@ def call(body) {
         steps {
           script{
             sh 'kubectl rollout deploy --all -n obs --config=/home/.kube/config'
-            sh 'kubectl rollout ds --all -n obs --config=/home/.kube/config'
+            sh 'kubectl rollout ds --all -n obs --kubeconfig=/home/.kube/config'
           }
         }
       }
       stage('Validation'){
         steps{
           script{
-            sh 'kubectl exec svc/elasticsearch-logging curl localhost:9200/_cluster/health --config=/home/.kube/config'
-            sh 'kubectl get po -n obs --config=/home/.kube/config'
+            sh 'kubectl exec svc/elasticsearch-logging curl localhost:9200/_cluster/health --kubeconfig=/home/.kube/config'
+            sh 'kubectl get po -n obs --kubeconfig=/home/.kube/config'
           }
         }
       }
