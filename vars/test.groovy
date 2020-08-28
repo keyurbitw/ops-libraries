@@ -15,7 +15,7 @@ def call(body) {
                 echo '[FAILURE] Yaml validation failed'
                 env.skipRemainingStages = true
                 sh 'exit 1'
-            }
+              }
           }
         }
       }
@@ -28,6 +28,7 @@ def call(body) {
                 echo '[FAILURE] K8s Validation failed'
                 env.skipRemainingStages = true
                 sh 'exit 1'
+              }
           }   
         }
       }
