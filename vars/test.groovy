@@ -24,9 +24,8 @@ def call(body) {
           script {
             try{
               sh 'cd elk-stack/ && ./k8sValidation.sh'
-            } finally {
-                echo '[FAILURE] K8s Validation failed'
-                env.skipRemainingStages = true
+            } catch (Exception e) {
+                echo '[FAILURE] K8s validation failed'
                 sh 'exit 1'
               }
           }   
@@ -52,8 +51,9 @@ def call(body) {
       stage('Validation'){
         steps{
           script{
+            sh 'Checking ES Cluster Health!!'
             sh 'kubectl exec svc/elasticsearch-logging curl localhost:9200/_cluster/health --kubeconfig=/home/.kube/config'
-            sh 'kubectl get po -n obs --kubeconfig=/home/.kube/config'
+            sh 'cd elk-stack/ && ./k8sValidation.sh'
           }
         }
       }
